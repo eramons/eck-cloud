@@ -1,0 +1,38 @@
+resources:
+
+  # Custom Resource Definitions
+  - https://download.elastic.co/downloads/eck/2.4.0/crds.yaml
+
+  # cert-manager
+  - https://github.com/cert-manager/cert-manager/releases/download/v1.9.1/cert-manager.yaml
+
+  # ELK
+  - https://download.elastic.co/downloads/eck/2.4.0/operator.yaml
+
+  # clusterissuer
+  - clusterissuer.yaml 
+
+  # Fleet/Agents ServiceAccounts
+  - elastic-agent-sa.yaml
+  - fleet-server-sa.yaml
+
+  # Fleet/Agents ClusterRole
+  - elastic-agent-clusterrole.yaml
+  - fleet-server-clusterrole.yaml
+
+  # Fleet/Agents ClusterRoleBinding
+  - elastic-agent-clusterrolebinding.yaml
+  - fleet-server-clusterrolebinding.yaml
+  
+  # Elasticsearch
+  - elasticsearch.yaml
+
+  # Agents
+  - fleet-server-agent.yaml
+  - elastic-agent.yaml
+
+  # Kibana 
+  - kibana.yaml
+
+  # Ingress 
+  - ingress.yaml
