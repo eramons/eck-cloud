@@ -1,7 +1,7 @@
 # eck-cloud
 Sample configuration files for running Elastic Cloud on Kubernetes (ECK) on top of a managed K8s service
 
-_This is not an official Elastic repository, just the documented process of my work deploying ECK on a German Cloud. For official resources and documentation, check the links at the bottom of the page._ 
+_This is not an official Elastic repository, just my documented work deploying ECK on a German Cloud. For official resources and documentation, check the links at the bottom of the page._ 
 
 ## 1. Infrastructure
 
@@ -40,7 +40,7 @@ Following things will happen:
 
 _Note: I created a DNS Record in GCP Cloud DNS. The DNS Record can be created in this way for any DNS service provider supporting Terraform._
 
-Using the _nginx ingress-controller_ is specific for this PoC and not necessarily the only way to manage access. It's just my preferred way to do so, instead of exposing directly the kibana service, which would also work.
+Using the _nginx ingress-controller_ is not necessarily the only way to manage access. It's just my preferred way to do so, instead of exposing directly the kibana service, which would also work.
 
 ## 2. K8s ressources
 
@@ -54,8 +54,6 @@ eramon@applejuice eck-cloud % kubectl cluster-info
 Kubernetes control plane is running at https://cp-42876.cluster.ionos.com:12268
 CoreDNS is running at https://cp-42876.cluster.ionos.com:12268/api/v1/namespaces/kube-system/services/coredns:udp-53/proxy
 ```
-
-### 2.2. kustomize
 
 The provisioning of the K8s ressources can be automated via kustomize. Following resources will be deployed:
  * The ECK Custom Resource Definitions (CRDs)
@@ -78,8 +76,6 @@ Worth to mention might be following changes:
  * I changed the type of the Kibana service from LoadBalancer to ClusterIP and deactivated SSL for Kibana, in order to manage SSL termination at the ingress
  * I set the number of elasticsearch nodes to 2
  * I created a persistent volume claim for each elasticsearch node, using the _ionos-enterprise-ssd_ storage class of the cloud provider
-
-Specific to this PoC are _cert-manager_ and _clusterissuer_, in order to automatically retrieve trusted SSL certificates from open CA Let's Encrypt when accesing Kibana. 
 
 The ingress provides access to the Kibana service and takes care of SSL termination. The file [ingress.yaml.sample](ingress.yaml.sample) does not include the actual domain I used. The host and domain must be set and the file must be renamed to _ingress.yaml_.
 
