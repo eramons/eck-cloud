@@ -34,11 +34,13 @@ Following things will happen:
 * A K8s Cluster is provisioned in the Data Center, according to the settings specified in the terraform configuration
 * A Node Pool is created for the K8s Cluster, with the size and ressources specified in the terraform configuration
 * A Public IP is provisioned for the Data Center
-* The kubeconfig of the K8s cluster is dumped to the local file _kubeconfig.json_
+* The kubeconfig of the K8s cluster is dumped to the local file _kubeconfig.json_ (*)
 * Using the Helm Provider, the nginx-ingress-controller is installed with type LoadBalancer and the provisioned IP
-* A DNS A Record is created binding my hostname.domain to the provisioned public IP
+* A DNS A Record is created binding my hostname.domain to the provisioned public IP (**)
 
-_Note: I created a DNS Record in GCP Cloud DNS. The DNS Record can be created in this way for any DNS service provider supporting Terraform._
+_(*) Again, this is fine for this demo, since both terraform and K8s are being managed directly from my local computer. From a security perspective, the kubeconfig shouldn't be stored as it is on the filesystem, since it is a credentials file._
+
+_(**) I created a DNS Record in GCP Cloud DNS. The DNS Record can be created in this way for any DNS service provider supporting Terraform._
 
 Using the _nginx ingress-controller_ is not necessarily the only way to manage access. It's just my preferred way to do so, instead of exposing directly the kibana service, which would also work.
 
